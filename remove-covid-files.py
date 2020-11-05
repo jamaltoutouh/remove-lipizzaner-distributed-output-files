@@ -20,11 +20,19 @@ DATASET = 'covid'
 
 
 def get_all_distributed_clients(lipizzaner_path, dataset, file_pattern):
+    print(lipizzaner_path + '/output/lipizzaner_gan/distributed/' + dataset + '/*/*/' + file_pattern)
     return [filepath for filepath in glob.iglob(lipizzaner_path + '/output/lipizzaner_gan/distributed/' + dataset + '/*/*/' + file_pattern)]
 
 def get_file_size(filename):
     st = os.stat(filename)
     return st.st_size
+
+def get_stats(files_list):
+    space_cleaned = 0
+    for file_to_remove in files_list:
+        if os.path.exists(file_to_remove):
+            space_cleaned += get_file_size(file_to_remove)
+    return space_cleaned/1024
 
 def remove_files(files_list):
     deleted_files, undeleted_files = list(), list()

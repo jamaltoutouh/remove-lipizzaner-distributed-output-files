@@ -38,6 +38,12 @@ def remove_files(files_list):
             undeleted_files.append(file_to_remove)
     return deleted_files, undeleted_files, space_cleaned/1024
 
+def get_stats(files_list):
+    space_cleaned = 0
+    for file_to_remove in files_list:
+        if os.path.exists(file_to_remove):
+            space_cleaned += get_file_size(file_to_remove)
+    return space_cleaned/1024
 
 def read_option(files_list):
     option = input('Are you sure that you want to remove {} files? [y/n]'.format(len(files_list)))
