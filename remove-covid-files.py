@@ -72,10 +72,10 @@ def create_log_file(deleted_files, undeleted_files, space_cleaned):
 
 files = list()
 for i in range(0, 990):
-    pattern = 'fake_images-{}'.format(i)
+    pattern = 'fake_images-{}.jpg'.format(i)
     files += get_all_distributed_clients(LIPI_PATH, DATASET, pattern)
-
-print('Found {} files'.format(len(files)))
+space = get_stats(files)
+print('Found {} files that uses {} MB'.format(len(files), space))
 # pattern = '*.jpg'
 # files = get_all_distributed_clients(LIPI_PATH, DATASET, pattern)
 if read_option(files):
