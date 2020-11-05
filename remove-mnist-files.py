@@ -15,8 +15,8 @@ import sys
 from scipy.stats import shapiro
 from os.path import dirname, abspath
 
-LIPI_PATH = '/home/jamaltoutouh/euro-gp2021/lipizzaner-covidgan/src/'
-DATASET = 'covid'
+LIPI_PATH = '/home/jamaltoutouh/euro-gp2021/lipizzaner-gan/src/'
+DATASET = 'mnist'
 
 
 def get_all_distributed_clients(lipizzaner_path, dataset, file_pattern):
@@ -44,7 +44,7 @@ def remove_files(files_list):
             os.remove(file_to_remove)
         else:
             undeleted_files.append(file_to_remove)
-    return deleted_files, undeleted_files, space_cleaned/1024
+    return deleted_files, undeleted_files, space_cleaned/(1024 * 1024)
 
 
 def read_option(files_list):
@@ -71,8 +71,8 @@ def create_log_file(deleted_files, undeleted_files, space_cleaned):
 
 
 files = list()
-for i in range(0, 990):
-    pattern = 'fake_images-{}.jpg'.format(i)
+for i in range(0, 190):
+    pattern = 'fake_images-{:02d}.jpg'.format(i)
     files += get_all_distributed_clients(LIPI_PATH, DATASET, pattern)
 space = get_stats(files)
 print('Found {} files that uses {} MB'.format(len(files), space))
